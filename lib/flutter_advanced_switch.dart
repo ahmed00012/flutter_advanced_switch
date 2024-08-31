@@ -122,9 +122,10 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: (){
+       onTap:  (){
           _handlePressed();
-          widget.onTap(_valueController.value);
+          if(widget.onTap != null)
+          widget.onTap!(_valueController.value);
         },
         child: Opacity(
           opacity: _isEnabled ? 1 : widget.disabledOpacity,
