@@ -18,6 +18,7 @@ class AdvancedSwitch extends StatefulWidget {
     this.thumb,
     this.initialValue = false,
     this.onChanged,
+     this.onTap,
   }) : super(key: key);
 
   /// Determines if widget is enabled
@@ -64,7 +65,9 @@ class AdvancedSwitch extends StatefulWidget {
 
   /// Called when the value of the switch should change.
   final ValueChanged? onChanged;
+  final Function(bool)? onTap;
 
+  
   @override
   _AdvancedSwitchState createState() => _AdvancedSwitchState();
 }
@@ -119,7 +122,10 @@ class _AdvancedSwitchState extends State<AdvancedSwitch>
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: _handlePressed,
+        onTap: onTap: (){
+          _handlePressed();
+          widget.onTap(_valueController.value);
+        },
         child: Opacity(
           opacity: _isEnabled ? 1 : widget.disabledOpacity,
           child: AnimatedBuilder(
